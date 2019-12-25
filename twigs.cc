@@ -72,6 +72,8 @@ Gpio<PortC, 3> button_1;
 #define FACTORER_BYPASS_INDEX 7
 #define FACTORER_BYPASS_VALUE 1
 
+#define TRIGGER_EXTEND_LENGTH 4
+
 // Adc
 AdcInputScanner adc;
 uint8_t adc_counter;
@@ -92,6 +94,8 @@ uint16_t led_gate_duration[SYSTEM_NUM_CHANNELS];
 // Channel state
 uint16_t channel_last_action_at[SYSTEM_NUM_CHANNELS];
 uint8_t exec_state[SYSTEM_NUM_CHANNELS];
+
+uint8_t trigger_extend_length[SYSTEM_NUM_CHANNELS];
 
 // Available functions
 enum ChannelFunction {
@@ -224,6 +228,10 @@ void SystemInit() {
   AdcInit();
 
   SystemLoadState();
+
+  for (uint8_t i = 0; i < SYSTEM_NUM_CHANNELS; ++i) {
+    trigger_extend_length[i] = 0;
+  }
 
   TCCR1A = 0;
   TCCR1B = 5;
@@ -627,9 +635,14 @@ inline void FunctionExec(uint8_t channel) {
   // Do stuff
   if (exec_state[channel] > 0) {
     GateOutputOn(channel);
+    trigger_extend_length[channel] = TRIGGER_EXTEND_LENGTH;
     (exec_state[channel] < 2) ? LedExecThru(channel) : LedExecStrike(channel);
   } else {
-    GateOutputOff(channel);
+    if (trigger_extend_length[channel] > 0) {
+      trigger_extend_length[channel] -= 1;
+    } else {
+      GateOutputOff(channel);
+    }
   }
   exec_state[channel] = 0; // clean up
 }
