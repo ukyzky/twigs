@@ -72,7 +72,10 @@ Gpio<PortC, 3> button_1;
 #define FACTORER_BYPASS_INDEX 7
 #define FACTORER_BYPASS_VALUE 1
 
-#define TRIGGER_EXTEND_LENGTH 4
+// 0.128 * 4 = 0.512ms
+// #define TRIGGER_EXTEND_LENGTH 4
+// 0.128 * 20 = 2.56ms
+#define TRIGGER_EXTEND_LENGTH 20
 
 // Adc
 AdcInputScanner adc;

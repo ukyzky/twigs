@@ -1,13 +1,13 @@
-# Twigs (with extended trigger length custom firmware by ukyzky)
+# Twigs (customized with extended trigger length)
 
 Original Twigs firmware has a little compatibility problem about too short trigger output length.
 
-For example, Make Noise Rene Classic module recommends that clock input trigger length is 0.5ms.
+For example, Make Noise Rene Classic module recommends that clock input trigger length is 0.5ms. And Rene 2018 module recommends 2.5ms.
 
 But original twigs firmware seems too short trigger length.
 (According to source code, it seems to be 0.128ms.)
 
-So in this custom firmware, trigger output length is extended to 0.512ms.
+So in this custom firmware, trigger output length is extended to 2.56ms.
 
 # Twigs
 
