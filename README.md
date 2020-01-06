@@ -1,4 +1,6 @@
-# Twigs (customized with extended trigger length)
+# Twigs (customized with extended trigger length and bugfix)
+
+## customize
 
 Original Twigs firmware has a little compatibility problem about too short trigger output length.
 
@@ -8,6 +10,10 @@ But original twigs firmware seems too short trigger length.
 (According to source code, it seems to be 0.128ms.)
 
 So in this custom firmware, trigger output length is extended to 2.56ms.
+
+## bugfix
+
+fixed: unstable trigger timing every about 8 seconds in Factor mode.
 
 # Twigs
 
